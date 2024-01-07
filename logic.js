@@ -1,12 +1,12 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
-//Score variable
+//score variable
 let score = 0;
 
-//player variables
+// Player variables
 const player = {
-    x: canvas.width / 2-20,
+    x: canvas.width / 2 - 20,
     y: canvas.height - 30,
     width: 40,
     height: 30,
@@ -15,18 +15,17 @@ const player = {
     bullet: null
 };
 
-
-//enemy variables
+// Enemy variables
 const enemies = [];
 const enemyWidth = 30;
 const enemyHeight = 30;
 const enemyRowCount = 5;
 const enemyColCount = 10;
-let enemyDirection = 1; //put -1 for left
+let enemyDirection = 1; // 1 for right, -1 for left
 
-//create the enemies
-for (let col = 0; col <enemyColCount; col++){
-    for (let row = 0; row < enemyRowCount; row++){
+// Create enemies
+for (let col = 0; col < enemyColCount; col++) {
+    for (let row = 0; row < enemyRowCount; row++) {
         const enemy = {
             x: col * (enemyWidth + 10),
             y: row * (enemyHeight + 10),
@@ -35,10 +34,37 @@ for (let col = 0; col <enemyColCount; col++){
             color: '#7AD0B2',
             alive: true
         };
-        enemies.push(enemy); //push it into the array
+        enemies.push(enemy);
     }
 }
 
+document.addEventListener('keydown', handleKeyPress);
+
+function handleKeyPress(event) {
+    const speed = 10; // Adjust the player's movement speed
+
+    // Move player left
+    if (event.key === 'ArrowLeft') {
+        player.x = Math.max(player.x - speed, 0); // Ensure player doesn't go past the left edge
+    }
+
+    // Move player right
+    if (event.key === 'ArrowRight') {
+        player.x = Math.min(player.x + speed, canvas.width - player.width); // Ensure player doesn't go past the right edge
+    }
+
+    if (event.key === ' ' && !player.isShooting) {
+        player.isShooting = true;
+        player.bullet = {
+            x: player.x + player.width / 2 - 2.5, // Bullet centered on the player
+            y: player.y,
+            width: 5,
+            height: 10,
+            color: '#0F0'
+        };
+        shootSound();
+    }
+}
 function resetGame() {
     // Reset player position
     player.x = canvas.width / 2 - 20;
@@ -68,6 +94,7 @@ function resetGame() {
         enemyDirection *= -1; // Randomly reverse direction
     }
 }
+// Game loop
 function gameLoop() {
     const allEnemiesDead = enemies.every(enemy => !enemy.alive);
     if (allEnemiesDead) {
@@ -136,16 +163,16 @@ function gameLoop() {
         player.bullet.y -= 10; // Adjust bullet speed
     }
     
-    // enemy movement
+    // Move enemies
     enemies.forEach(enemy => {
         if (enemy.alive) {
             enemy.x += enemyDirection * 1; // Adjust speed here
 
-            // change the direction of the enemies with 
+            // Change direction if enemies hit the canvas border
             if (enemy.x + enemy.width >= canvas.width || enemy.x <= 0) {
-                enemyDirection *= -1; // Direction Change
+                enemyDirection *= -1; // Change direction
                 enemies.forEach(e => {
-                    e.y += 10; // move enemies down when changing direction
+                    e.y += 10; // Move enemies down when changing direction
                 });
             }
         }
@@ -153,7 +180,6 @@ function gameLoop() {
     document.getElementById('scoreBoard').innerHTML = "Score: "+ score;
     requestAnimationFrame(gameLoop);
 }   
-
 function deathSound(){
     let audio = new Audio("./deathSound.mp3")  //Death sound
     audio.volume=0.2;
@@ -176,3 +202,6 @@ function gameEnd() {
     alert("Game Over! Enemies touched the player."); // Display a message (you can replace this with your own game over screen)
     resetGame(); // Restart the game
 }
+
+// Start the game loop
+gameLoop();
