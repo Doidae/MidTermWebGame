@@ -38,3 +38,19 @@ for (let col = 0; col <enemyColCount; col++){
         enemies.push(enemy); //push it into the array
     }
 }
+function deathSound(){
+    let audio = new Audio("./deathSound.mp3")  //Death sound
+    audio.volume=0.2;
+    audio.play()
+}
+
+function popSound(){
+    let audio2 = new Audio("./popSound.mp3")
+    audio2.volume=0.2;
+    audio2.play()
+}
+function shootSound(){
+    let audio3 = new Audio("./shootSound.mp3")
+    audio3.volume=0.2;
+    audio3.play()
+}
