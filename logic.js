@@ -22,4 +22,19 @@ const enemyWidth = 30;
 const enemyHeight = 30;
 const enemyRowCount = 5;
 const enemyColCount = 10;
-let enemyDirection = 1; 
+let enemyDirection = 1; //put -1 for left
+
+//create the enemies
+for (let col = 0; col <enemyColCount; col++){
+    for (let row = 0; row < enemyRowCount; row++){
+        const enemy = {
+            x: col * (enemyWidth + 10),
+            y: row * (enemyHeight + 10),
+            width: enemyWidth,
+            height: enemyHeight,
+            color: '#7AD0B2',
+            alive: true
+        };
+        enemies.push(enemy); //push it into the array
+    }
+}
