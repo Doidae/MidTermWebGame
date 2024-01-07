@@ -73,7 +73,7 @@ function resetGame() {
     // Reset enemy variables
     enemies.length = 0; // Clear existing enemies
 
-    // Create new enemies with increased speed
+    // Create new enemies
     for (let col = 0; col < enemyColCount; col++) {
         for (let row = 0; row < enemyRowCount; row++) {
             const enemy = {
@@ -201,6 +201,7 @@ function gameEnd() {
     deathSound(); // Play the death sound
     alert("Game Over! Enemies touched the player."); // Display a message (you can replace this with your own game over screen)
     resetGame(); // Restart the game
+    score = 0;// score would continue over 
 }
 
 // Start the game loop
