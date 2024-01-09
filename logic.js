@@ -1,3 +1,4 @@
+
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
@@ -7,7 +8,7 @@ let score = 0;
 // Player variables
 const player = {
     x: canvas.width / 2 - 20,
-    y: canvas.height - 30,
+    y: canvas.height - 30, //positions the player at the bottom of the canvas
     width: 40,
     height: 30,
     color: '#00F',
@@ -96,7 +97,7 @@ function resetGame() {
 }
 // Game loop
 function gameLoop() {
-    const allEnemiesDead = enemies.every(enemy => !enemy.alive);
+    const allEnemiesDead = enemies.every(enemy => !enemy.alive); //checks if all enemies are dead
     if (allEnemiesDead) {
         resetGame();
     }
@@ -138,13 +139,13 @@ function gameLoop() {
         ctx.fillRect(player.bullet.x, player.bullet.y, player.bullet.width, player.bullet.height);
 
         // Check for collisions with enemies
-        enemies.forEach(enemy => {
+        enemies.forEach(enemy => { // this line iterates through each enemy in the enemies array using the forEach method
             if (
-                enemy.alive &&
-                player.bullet.x < enemy.x + enemy.width &&
-                player.bullet.x + player.bullet.width > enemy.x &&
-                player.bullet.y < enemy.y + enemy.height &&
-                player.bullet.y + player.bullet.height > enemy.y
+                enemy.alive && //Checks if the current enemy is alive (enemy.alive is true) and proceeds with the collision detection
+                player.bullet.x < enemy.x + enemy.width &&                     //checks if the left side of the bullet is to the left of the right side of the enemy.
+                player.bullet.x + player.bullet.width > enemy.x &&            //checks if the right side of the bullet is to the right of the left side of the enemy.
+                player.bullet.y < enemy.y + enemy.height &&                  //checks if the top side of the bullet is above the bottom side of the enemy.
+                player.bullet.y + player.bullet.height > enemy.y            //checks if the bottom side of the bullet is below the top side of the enemy.
             ) {
                 // Collision detected, make the enemy not alive
                 enemy.alive = false;
@@ -169,7 +170,7 @@ function gameLoop() {
             enemy.x += enemyDirection * 1; // Adjust speed here
 
             // Change direction if enemies hit the canvas border
-            if (enemy.x + enemy.width >= canvas.width || enemy.x <= 0) {
+            if (enemy.x + enemy.width >= canvas.width || enemy.x <= 0) { //or
                 enemyDirection *= -1; // Change direction
                 enemies.forEach(e => {
                     e.y += 10; // Move enemies down when changing direction
@@ -177,8 +178,8 @@ function gameLoop() {
             }
         }
     });
-    document.getElementById('scoreBoard').innerHTML = "Score: "+ score;
-    requestAnimationFrame(gameLoop);
+    document.getElementById('scoreBoard').innerHTML = "Score: "+ score; //Del?
+    requestAnimationFrame(gameLoop); //runs gameloops or animatioins
 }   
 function deathSound(){
     let audio = new Audio("./deathSound.mp3")  //Death sound
