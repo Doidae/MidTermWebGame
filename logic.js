@@ -2,6 +2,7 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
+
 //score variable
 let score = 0;
 
@@ -180,6 +181,7 @@ function gameLoop() {
     });
     document.getElementById('scoreBoard').innerHTML = "Score: "+ score; //Del?
     requestAnimationFrame(gameLoop); //runs gameloops or animatioins
+    
 }   
 function deathSound(){
     let audio = new Audio("./deathSound.mp3")  //Death sound
@@ -188,14 +190,14 @@ function deathSound(){
 }
 
 function popSound(){
-    let audio2 = new Audio("./popSound.mp3")
+    let audio2 = new Audio("./popSound.mp3");
     audio2.volume=0.2;
-    audio2.play()
+    audio2.play();
 }
 function shootSound(){
-    let audio3 = new Audio("./shootSound.mp3")
+    let audio3 = new Audio("./shootSound.mp3");
     audio3.volume=0.2;
-    audio3.play()
+    audio3.play();
 }
 function gameEnd() {
     // Add any game over logic here
@@ -204,6 +206,7 @@ function gameEnd() {
     resetGame(); // Restart the game
     score = 0;// score would continue over 
 }
+
 
 // Start the game loop
 gameLoop();
