@@ -17,3 +17,5 @@ Gameover Sound: https://freesound.org/people/Jofae/sounds/364929/
 Moving/Shooting Sound: https://freesound.org/people/Jofae/sounds/364929/
 
 Alien Death Sound: https://freesound.org/people/cfork/sounds/8000/
+
+Background Image: https://opengameart.org/content/2d-space-background
